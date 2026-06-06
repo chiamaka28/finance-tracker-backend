@@ -1,0 +1,12 @@
+name,category,avatarUrl,date,amount,recurring
+Harper Edwards,Shopping,./assets/images/avatars/harper-edwards.jpg,2024-07-26T09:43:23Z,-89.99,false
+James Rodriguez,Dining Out,./assets/images/avatars/james-rodriguez.jpg,2024-07-25T14:22:10Z,-45.50,false
+Sarah Mitchell,Bills,./assets/images/avatars/sarah-mitchell.jpg,2024-07-24T08:00:00Z,-120.00,true
+David Chen,Entertainment,./assets/images/avatars/david-chen.jpg,2024-07-23T19:30:00Z,-25.00,false
+Emma Wilson,Groceries,./assets/images/avatars/emma-wilson.jpg,2024-07-22T11:15:00Z,-67.30,false
+Michael Brown,Transportation,./assets/images/avatars/michael-brown.jpg,2024-07-21T07:45:00Z,-15.00,true
+Lisa Anderson,Personal Care,./assets/images/avatars/lisa-anderson.jpg,2024-07-20T13:00:00Z,-55.00,false
+John Davis,Education,./assets/images/avatars/john-davis.jpg,2024-07-19T10:00:00Z,-200.00,false
+Anna Taylor,Lifestyle,./assets/images/avatars/anna-taylor.jpg,2024-07-18T16:30:00Z,-35.00,false
+Robert White,General,./assets/images/avatars/robert-white.jpg,2024-07-17T09:00:00Z,-10.00,false
+Bad Row,InvalidCategory,./assets/images/avatars/bad-row.jpg,2024-07-16T09:00:00Z,-10.00,false

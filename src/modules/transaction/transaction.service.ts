@@ -30,13 +30,27 @@ const normalizeCategory = (value: string): Category | null => {
 
 export const getAllTransactions = async (
     userId: number,
-    category?: Category
+    category?: Category,
+    sortBy?: string
 ) => {
   const userExists = await prisma.user.findUnique({ where: { id: userId } });
   if (!userExists) {
     throw new Error(`User with ID ${userId} not found`);
   }
-  const transactions = await prisma.transactions.findMany({where: { userId, ...(category && { category }), }});
+
+  const sortOptions: Record<string, object> = {
+    latest:  { date: 'desc' },
+    oldest:  { date: 'asc' },
+    aToZ:    { name: 'asc' },
+    zToA:    { name: 'desc' },
+    highest: { amount: 'desc' },
+    lowest:  { amount: 'asc' },
+
+  };
+
+  const orderBy = sortOptions[sortBy ?? ''] ?? { date: 'desc' };
+
+  const transactions = await prisma.transactions.findMany({where: { userId, ...(category && { category }), }, orderBy});
   if (transactions.length > 0) {
      return transactions;
   } else {

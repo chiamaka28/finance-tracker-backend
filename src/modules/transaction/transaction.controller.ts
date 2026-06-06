@@ -9,10 +9,11 @@ export class TransactionController {
     try {
       const userId = Number(req.user?.id);
       const rawCategory = req.query.category as string | undefined;
+      const sortBy = req.query.sortBy as string | undefined;
       const category = rawCategory
         ? (rawCategory.toUpperCase().replace(/ /g, '_') as Category)
         : undefined;
-      const transactions = await getAllTransactions(userId, category);
+      const transactions = await getAllTransactions(userId, category, sortBy);
       res.status(200).json({
         success: true,
         data: transactions,

@@ -31,7 +31,8 @@ const normalizeCategory = (value: string): Category | null => {
 export const getAllTransactions = async (
     userId: number,
     category?: Category,
-    sortBy?: string
+    sortBy?: string,
+    search?: string
 ) => {
   const userExists = await prisma.user.findUnique({ where: { id: userId } });
   if (!userExists) {
@@ -50,7 +51,7 @@ export const getAllTransactions = async (
 
   const orderBy = sortOptions[sortBy ?? ''] ?? { date: 'desc' };
 
-  const transactions = await prisma.transactions.findMany({where: { userId, ...(category && { category }), }, orderBy});
+  const transactions = await prisma.transactions.findMany({where: { userId, ...(category && { category }), ...(search && { name: { contains: search } }), },   orderBy});
   if (transactions.length > 0) {
      return transactions;
   } else {
@@ -91,7 +92,10 @@ export const importFromCsv = async (buffer: Buffer, userId: number) => {
     });
   }
 
-  await prisma.transactions.createMany({ data: validRows });
+ const result = await prisma.transactions.createMany({ 
+  data: validRows, 
+  skipDuplicates: true 
+});
 
-  return { saved: validRows.length, skipped };
+return { saved: result.count, skipped };
 };

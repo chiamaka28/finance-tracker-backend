@@ -32,6 +32,7 @@ model Transactions {
   date DateTime
   amount Decimal @db.Decimal(12, 2)
   recurring Boolean @default(false)
+  @@unique([name, date, userId])
   userId    Int
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 

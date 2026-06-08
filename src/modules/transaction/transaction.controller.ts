@@ -13,7 +13,8 @@ export class TransactionController {
       const category = rawCategory
         ? (rawCategory.toUpperCase().replace(/ /g, '_') as Category)
         : undefined;
-      const transactions = await getAllTransactions(userId, category, sortBy);
+      const search = req.query.search as string | undefined;
+      const transactions = await getAllTransactions(userId, category, sortBy, search);
       res.status(200).json({
         success: true,
         data: transactions,

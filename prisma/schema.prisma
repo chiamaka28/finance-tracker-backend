@@ -61,7 +61,6 @@ model Pots {
 
 model Budgets{
    id Int @id @default(autoincrement())
-   name String
    maxAmount Decimal @db.Decimal(12, 2)
    color String
    category Category

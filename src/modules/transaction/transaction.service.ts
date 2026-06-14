@@ -32,7 +32,9 @@ export const getAllTransactions = async (
     userId: number,
     category?: Category,
     sortBy?: string,
-    search?: string
+    search?: string,
+    page?: number,
+   limit?: number,
 ) => {
   const userExists = await prisma.user.findUnique({ where: { id: userId } });
   if (!userExists) {
@@ -48,16 +50,37 @@ export const getAllTransactions = async (
     lowest:  { amount: 'asc' },
 
   };
+  const take = limit ?? 20;
+  const skip = ((page ?? 1) - 1) * take;
 
   const orderBy = sortOptions[sortBy ?? ''] ?? { date: 'desc' };
 
-  const transactions = await prisma.transactions.findMany({where: { userId, ...(category && { category }), ...(search && { name: { contains: search } }), },   orderBy});
-  if (transactions.length > 0) {
-     return transactions;
-  } else {
-     const rawData = await fs.promises.readFile(filePath, 'utf-8');
-      return JSON.parse(rawData);
-  }
+ const [transactions, total] = await Promise.all([
+  prisma.transactions.findMany({
+    where: {
+      userId,
+      ...(category && { category }),
+      ...(search && { name: { contains: search } }),
+    },
+    orderBy,
+    take,
+    skip,
+  }),
+  prisma.transactions.count({
+    where: {
+      userId,
+      ...(category && { category }),
+      ...(search && { name: { contains: search } }),
+    },
+  }),
+]);
+
+if (total > 0) {
+  return { transactions, total, page: page ?? 1, limit: take, totalPages: Math.ceil(total / take) };
+} else {
+  const rawData = await fs.promises.readFile(filePath, 'utf-8');
+  return JSON.parse(rawData);
+}
 
 
  

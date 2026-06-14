@@ -14,7 +14,9 @@ export class TransactionController {
         ? (rawCategory.toUpperCase().replace(/ /g, '_') as Category)
         : undefined;
       const search = req.query.search as string | undefined;
-      const transactions = await getAllTransactions(userId, category, sortBy, search);
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 10;
+      const transactions = await getAllTransactions(userId, category, sortBy, search, page, limit);
       res.status(200).json({
         success: true,
         data: transactions,

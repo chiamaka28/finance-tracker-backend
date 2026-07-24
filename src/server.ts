@@ -2,6 +2,7 @@ import express, {type Express, type Response} from 'express';
 import authRouter from './modules/auth/auth.router';
 import TransactionRouter from './modules/transaction/transaction.router';
 import budgetRouter from './modules/budget/budget.router';
+import potRouter from './modules/pots/pots.router';
 import { authenticate } from  './middleware/auth';
 import cors from 'cors';
 
@@ -24,6 +25,7 @@ app.get('/', (req, res: Response) => {
 app.use('/api/auth', authRouter);
 app.use('/api/transactions', authenticate, TransactionRouter);
 app.use('/api/budget', authenticate,  budgetRouter);
+app.use('/api/pot', authenticate, potRouter)
 //Start the server
 
 export default app;

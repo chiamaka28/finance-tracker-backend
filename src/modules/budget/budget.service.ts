@@ -97,3 +97,4 @@ export const deleteBudgetService = async(userId: number, budgetId: number) => {
 
     await prisma.budgets.delete({ where: { id: budgetId } });
 }
+

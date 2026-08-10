@@ -1,5 +1,5 @@
 import type {  Response } from 'express';
-import { getAllTransactions, importFromCsv } from './transaction.service';
+import { getAllTransactions, getTransactionSummary, importFromCsv } from './transaction.service';
 import type{ AuthRequest } from '../../middleware/auth';
 import type { Category } from '@generated/prisma/client'
 
@@ -29,6 +29,20 @@ export class TransactionController {
       });
     }
   }
+
+  async getTransactionSummary(req: AuthRequest, res: Response): Promise<void> {
+  try {
+    const userId = Number(req.user?.id);
+    const summary = await getTransactionSummary(userId);
+
+    res.status(200).json({
+      success: true,
+      data: summary,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: 'Failed to fetch summary' });
+  }
+}
 
   async importTransactions(req: AuthRequest, res: Response) {
   try {

@@ -86,6 +86,26 @@ if (total > 0) {
  
 }
 
+
+export const getTransactionSummary = async (userId: number) => {
+  const [incomeAggregate, expenseAggregate] = await Promise.all([
+    prisma.transactions.aggregate({
+      where: { userId, amount: { gt: 0 } },
+      _sum: { amount: true },
+    }),
+    prisma.transactions.aggregate({
+      where: { userId, amount: { lt: 0 } },
+      _sum: { amount: true },
+    }),
+  ]);
+
+  const income = Number(incomeAggregate._sum.amount) || 0;
+  const expenses = Math.abs(Number(expenseAggregate._sum.amount)) || 0;
+  const balance = income - expenses;
+
+  return { income, expenses, balance };
+};
+
 export const importFromCsv = async (buffer: Buffer, userId: number) => {
   const rows = parse(buffer, {
     columns: true,

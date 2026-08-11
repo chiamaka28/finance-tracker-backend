@@ -21,7 +21,6 @@ model User {
   pots Pots[]
   budgets      Budgets[] 
   refreshToken RefreshToken[]
-  bills Bills[]
 }
 
 model Transactions {
@@ -71,17 +70,6 @@ model Budgets{
 }
 
 
-model Bills {
-   id Int @id @default(autoincrement())
-   name String
-   category Category
-   date DateTime
-   amount Decimal @db.Decimal(12, 2)
-   dueDate   Int
-  isPaid    Boolean  @default(false)
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
 
 enum Category {

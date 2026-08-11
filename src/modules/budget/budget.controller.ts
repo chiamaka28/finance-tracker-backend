@@ -18,7 +18,7 @@ export class BudgetController {
                data: { result: budget},
            });
         } catch (error: any) {
-            console.error('Error creating budget:', error);
+            console.log('Error creating budget:', error);
             switch (error.status) {
                 case 400:
                     res

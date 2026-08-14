@@ -22,6 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile --production=false
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       - name: Run TypeScript check
         run: yarn tsc --noEmit

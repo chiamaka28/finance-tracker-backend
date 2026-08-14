@@ -6,7 +6,8 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc && npx tsc-alias --resolve-full-paths --resolve-full-extension .js",
     "prestart": "pnpm run build",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

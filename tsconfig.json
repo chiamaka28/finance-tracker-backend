@@ -44,5 +44,5 @@
       "@/*": ["./src/*"],
       "@generated/*": ["./src/generated/*"] 
     }
-  }, "exclude": ["prisma.config.ts", "node_modules"]
+  }, "exclude": ["prisma.config.ts", "generated", "node_modules"]
 }

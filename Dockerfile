@@ -9,7 +9,7 @@ RUN yarn global add tsc-alias && yarn install --frozen-lockfile --production=fal
 
 COPY . .
 
-RUN yarn build
+RUN npx prisma generate && yarn build
 
 EXPOSE 3000
 

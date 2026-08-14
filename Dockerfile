@@ -9,7 +9,7 @@ RUN yarn global add tsc-alias && yarn install --frozen-lockfile --production=fal
 
 COPY . .
 
-RUN yarn build
+RUN yarn build && cp -r src/generated dist/generated
 
 RUN ls -la dist/
 

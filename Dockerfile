@@ -9,10 +9,8 @@ RUN yarn global add tsc-alias && yarn install --frozen-lockfile --production=fal
 
 COPY . .
 
-RUN yarn build && cp -r src/generated dist/generated
-
-RUN ls -la dist/
+RUN yarn build
 
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+CMD ["sh", "-c", "npx prisma generate && node dist/index.js"]

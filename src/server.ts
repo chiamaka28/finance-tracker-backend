@@ -40,7 +40,7 @@ app.use(cors());
 //Authentication Middleware
 
 //Routes
-app.get('/', (req, res: Response) => {
+app.get('/', (_req, res: Response) => {
   res.send('Hello, World!');
 });
 app.use('/api/auth', authLimiter, authRouter);

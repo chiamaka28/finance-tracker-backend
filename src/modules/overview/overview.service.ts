@@ -1,7 +1,7 @@
 import { getTransactionSummary, getAllTransactions } from '../transaction/transaction.service';
 import { getBudgetService } from '../budget/budget.service';
 import { getPotService } from '../pots/pots.service';
-import type { Transactions } from '../../generated/prisma/client';
+import type { Transactions } from '@generated/prisma/client';
 import type{ PotResponseDto } from '../pots/pots.dto';
 
 export const getOverviewService = async (userId: number) => {

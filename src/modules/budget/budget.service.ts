@@ -1,6 +1,6 @@
 import { prisma } from '../../db';
 import {BudgetMapper, type CreateBudgetDto } from './budget.dto';
-import type { Budgets, Transactions } from '../../generated/prisma/client';
+import type { Budgets, Transactions } from '@generated/prisma/client';
 
 interface BudgetWithDetails extends Omit<Budgets, 'maxAmount'> {
   maxAmount: number;

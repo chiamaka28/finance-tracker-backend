@@ -13,4 +13,4 @@ RUN yarn build
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "npx prisma generate && node dist/index.js"]
+CMD ["node", "dist/index.js"]

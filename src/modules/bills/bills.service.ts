@@ -1,5 +1,12 @@
 import { prisma } from '../../db'
 
+interface Bill {
+  amount: number;
+  isPaid: boolean;
+  dueSoon: boolean;
+  dueDate: number;
+}
+
 export const getBillsService = async (
     userId: number,
     search?: string,
@@ -25,31 +32,31 @@ export const getBillsService = async (
   const today = new Date();
   const todayDay = today.getDate();
 
-  const bills = recurringTransactions.map((t) => {
-    const date = new Date(t.date);
-    const dueDate = date.getDate();
-    const isPaid = date < today;
-    const dueSoon = !isPaid && (dueDate - todayDay) <= 5 && (dueDate - todayDay) >= 0;
+  const bills: Bill[] = recurringTransactions.map((t) => {
+  const date = new Date(t.date);
+  const dueDate = date.getDate();
+  const isPaid = date < today;
+  const dueSoon = !isPaid && (dueDate - todayDay) <= 5 && (dueDate - todayDay) >= 0;
 
-    return {
-      ...t,
-      amount: Number(t.amount),
-      dueDate,
-      isPaid,
-      dueSoon,
-    };
-  });
+  return {
+    ...t,
+    amount: Number(t.amount),
+    dueDate,
+    isPaid,
+    dueSoon,
+  };
+});
 
-  const totalBills = bills.reduce((sum, bill) => sum + Math.abs(bill.amount), 0);
+const totalBills = bills.reduce((sum: number, bill: Bill) => sum + Math.abs(bill.amount), 0);
 
-  const paidBills = bills.filter((b) => b.isPaid);
-  const paidTotal = paidBills.reduce((sum, b) => sum + Math.abs(b.amount), 0);
+const paidBills = bills.filter((b: Bill) => b.isPaid);
+const paidTotal = paidBills.reduce((sum: number, b: Bill) => sum + Math.abs(b.amount), 0);
 
-  const upcomingBills = bills.filter((b) => !b.isPaid);
-  const upcomingTotal = upcomingBills.reduce((sum, b) => sum + Math.abs(b.amount), 0);
+const upcomingBills = bills.filter((b: Bill) => !b.isPaid);
+const upcomingTotal = upcomingBills.reduce((sum: number, b: Bill) => sum + Math.abs(b.amount), 0);
 
-  const dueSoonBills = bills.filter((b) => b.dueSoon);
-  const dueSoonTotal = dueSoonBills.reduce((sum, b) => sum + Math.abs(b.amount), 0);
+const dueSoonBills = bills.filter((b: Bill) => b.dueSoon);
+const dueSoonTotal = dueSoonBills.reduce((sum: number, b: Bill) => sum + Math.abs(b.amount), 0);
 
   return {
     summary: {

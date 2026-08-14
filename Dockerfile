@@ -11,6 +11,8 @@ COPY . .
 
 RUN yarn build
 
+RUN ls -la dist/
+
 EXPOSE 3000
 
 CMD ["node", "dist/index.js"]

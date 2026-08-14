@@ -3,8 +3,12 @@
   "compilerOptions": {
     // File Layout
 
-    "rootDir": "./",
+     "rootDir": "./src",
     "outDir": "./dist",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@generated/*": ["./src/generated/*"]
+    },
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -40,11 +44,11 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-     "paths": {
-      "@/*": ["./src/*"],
-      "@generated/*": ["./generated/*"] 
-    }
-  },"include": ["src/**/*", "generated/**/*"],
-  "exclude": ["prisma.config.ts",  "node_modules"]
+    "skipLibCheck": true
+    //  "paths": {
+    //   "@/*": ["./src/*"],
+    //   "@generated/*": ["./generated/*"] 
+    // }
+  }, "include": ["src/**/*"],
+  "exclude": ["src/generated/**/*", "prisma.config.ts", "node_modules"]
 }

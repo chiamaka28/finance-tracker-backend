@@ -42,7 +42,7 @@
     "skipLibCheck": true,
      "paths": {
       "@/*": ["./src/*"],
-      "@generated/*": ["./src/generated/*"] 
+      "@generated/*": ["./generated/*"] 
     }
   }, "exclude": ["prisma.config.ts", "generated", "node_modules"]
 }

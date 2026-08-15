@@ -9,7 +9,7 @@ RUN yarn global add tsc-alias && yarn install --frozen-lockfile --production=fal
 
 COPY . .
 
-RUN npx prisma generate --schema=prisma/schema.prisma && yarn build
+RUN DIRECT_URL="postgresql://dummy" npx prisma generate --schema=prisma/schema.prisma && yarn build
 
 EXPOSE 3000
 
